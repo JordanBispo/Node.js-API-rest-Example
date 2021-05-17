@@ -1,0 +1,73 @@
+### Register new customer
+POST http://localhost:8081/
+Content-Type: application/json
+
+{
+    "name" : "Severinoa da Silva",
+    "birth": "1985-05-25",
+    "sex" : "male",
+    "healthProblems": [
+        {
+            "name": "Diabete",
+            "degree": 2
+        }
+    ]
+}
+
+### get customers 
+# if the name/birth is not given will be returned a list of all customers
+GET http://localhost:4000/api/getCustomer?name=Severino da Silva&birth=1985-05-25
+
+
+### edit Customer
+# exchange the costumer of the query for the one of the body
+PUT http://localhost:4000/api/editCustomer?name=Severino da Silva&birth=1985-05-25
+Content-Type: application/json
+
+{
+    "name" : "Severino da Silva",
+    "birth": "1985-05-25",
+    "sex" : "male",
+    "healthProblems": [
+        {
+            "name": "Pressão alta",
+            "degree": 2
+        },
+        {
+            "name": "Leucemia",
+            "degree": 2
+        }
+    ]
+}
+
+### add/remove a specific customer's health problem
+# send customer ID in URL paht and List of healhealth problem in body of request
+# if the customer with that ID contains anyone from the list below, it will be removed, 
+# if not, it will be added to the list of health problems.
+PATCH  http://localhost:4000/api/ELCHP?id=6089df2396227119f44ef230
+Content-Type: application/json
+
+{
+    "list": [
+        {
+            "name": "Bronquite",
+            "degree": 1
+        },
+        {
+            "name": "Diabete",
+            "degree": 2
+        },
+        {
+            "name": "Anemia",
+            "degree": 2
+        },
+        {
+            "name": "Miopia",
+            "degree": 1
+        }
+    ]
+}
+### GET the 10 customers with the highest health risk
+GET http://localhost:4000/api/higher-health-risk
+Content-Type: application/json
+
