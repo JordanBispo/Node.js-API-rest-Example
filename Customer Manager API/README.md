@@ -109,7 +109,7 @@ This endpoint change the list of health problems of a customer using the list re
 The url must contain as parameter the ID of the custumer who will have list of health problems updated.
 
 * Method PATCH.  
-* Endpoint URL - /api/ELCHP?id=.  
+* Endpoint URL - /api/ECHP?id=.  
 * Response {message: "status message", changes: { addedToList: Array, removedFromList: Array}, updatedCustomer: Object}.
 
 Body Example:
@@ -127,13 +127,6 @@ Body Example:
     ]
 }
 ```
-
-### GET the 10 customers with the highest health risk
-List the 10 customer with the highest health risk
-
-* Method GET.
-* Endpoint URL - /api/higher-health-risk.
-* Response {message: "status message", CustomerList: Array}.
 
 ### TEST.http
 Case you are using VSCode, Install / enable the extension "REST Client" to test in a simple way and testing the api routes with just one click.

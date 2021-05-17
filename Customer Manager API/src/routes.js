@@ -1,20 +1,7 @@
 const Customer = require('./models/customer_schema')
 const express = require('express')
 const router  = express.Router()
-const HigherHealthRiskList = require('./HHRL') // Higher Health Risk List
 
-const HHRL = new HigherHealthRiskList()
-
-
-/** UPTADE the Highe rHealth Risk List according to customers already registered in the database  */
-const setHHRL = async () => { 
-    const customersList = await Customer.find({}, (err, customers) => {
-        if(err) return response(res, 500, err.message)
-        return customers 
-    });
-    HHRL.setScoreList(customersList)
-} 
-setHHRL() 
 
 const response = (res, code, message) => {
     return res.status(code).send({message: message})
@@ -41,8 +28,6 @@ router.post('/newCustomer', async (req, res) => {
     const customer = await Customer.create({name, birth: birthDate, sex, healthProblems}).catch((err)=>{
         return response(res, 500, err.message)
     })
-
-    await HHRL.setScoreList([customer])
 
     return response(res, 200, "New customer "+customer.name+" has been successfully registered")
 
@@ -91,12 +76,10 @@ router.put('/editCustomer', async (req, res)=>{
     
     if(!customer) return response(res, 404, "Customer not found")
 
-    await HHRL.setScoreList([customer])
-
     return response(res, 200, "Customer "+customer.name+" edited with successfully")
 })
 
-router.patch('/ELCHP', async (req, res)=>{ // ECHP - EDIT LIST of CUSTOMER HEALTH PROBLEM 
+router.patch('/ECHP', async (req, res)=>{ // ECHP - EDIT CUSTOMER HEALTH PROBLEM 
     const {id} = req.query
     const {list} = req.body
     
@@ -120,8 +103,6 @@ router.patch('/ELCHP', async (req, res)=>{ // ECHP - EDIT LIST of CUSTOMER HEALT
     })
     const result = await Customer.findByIdAndUpdate(id, {$set: {healthProblems: customer.healthProblems, lastUpdate: Date.now()}}, {new: true})
         .catch((err)=> {return response(res, 500, err.message)})
-
-    await HHRL.setScoreList([customer])
     
     return res.status(200).send({
         message: 'The list of customer health problems has been updated successfully',
@@ -129,20 +110,5 @@ router.patch('/ELCHP', async (req, res)=>{ // ECHP - EDIT LIST of CUSTOMER HEALT
         updatedCustomer: result
     })  
 })
-
-router.get('/higher-health-risk', async (req, res)=>{ // Get the 10 clients with the highest health risk
-    const idList = HHRL.get()
-    const customersList = await Customer.find({
-        '_id': { $in: idList}
-    }, function(err, docs){
-        if(err){
-            return response(res, 500, err)
-        }
-        return docs
-    });
-
-    return response(res, 200, {message: "the 10 clients with the highest health risk", customersList: customersList})
-})
-
 
 module.exports = router 
