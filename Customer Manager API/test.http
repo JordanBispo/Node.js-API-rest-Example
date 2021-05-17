@@ -1,5 +1,5 @@
 ### Register new customer
-POST http://localhost:8081/
+POST http://localhost:4000/api/newCustomer
 Content-Type: application/json
 
 {
@@ -43,7 +43,7 @@ Content-Type: application/json
 ### add/remove a specific customer's health problem
 # send customer ID in URL paht and List of healhealth problem in body of request
 # if the customer with that ID contains anyone from the list below, it will be removed, 
-# if not, it will be added to the list of health problems.
+# else, it will be added to the list of health problems.
 PATCH  http://localhost:4000/api/ELCHP?id=6089df2396227119f44ef230
 Content-Type: application/json
 
