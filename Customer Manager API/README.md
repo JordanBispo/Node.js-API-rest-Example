@@ -1,10 +1,7 @@
 # Customer Manager API
 
-A simple rest API to manage customer, programmed with Node.js and MongoDB, this API: register new customer; Search for a specific customer; List all customer; List the 10 customer with the highest health risk, in which the calculation is:
-```bash
-    // sd "sum of the degree of health problems"
-    score = (1 / (1 + eˆ-(-2.8 + sd ))) * 100
-```
+A simple rest API to manage customer, programmed with Node.js and MongoDB, this API: register new customer; Search for a specific customer; List all customer.
+
 ## Author
 <a href="https://jordanbispo.com.br">Jordan Rodrigo Souza Bispo</a>
 
@@ -57,11 +54,11 @@ Body example:
     {
     "name" : "Customer name", // String
     "birth": "1997-04-15",  // String - Just YYYY-MM-DD format
-    "sex" : "male", // String - Just ["male" or "female" or "masculino" or "feminino"] 
+    "sex" : "male", // String - Just ["male", "female", "masculino" or "feminino"] 
     "healthProblems": [ // Array
         {
             "name": "health problem name", // String
-            "degree": 1 // Number - [Min 1, Max 2]
+            "degree": 1 // Number - [Min 1, Max 10]
         }
     ]
 }
@@ -89,11 +86,11 @@ Body example:
     {
     "name" : "Customer name", // String
     "birth": "1997-04-15",  // String - Just YYYY-MM-DD format
-    "sex" : "male", // String - Just ["male" or "female" or "masculino" or "feminino"] 
+    "sex" : "male", // String - Just ["male", "female", "masculino" or "feminino"] 
     "healthProblems": [ // Array
         {
             "name": "health problem name", // String
-            "degree": 1 // Number - [Min 1, Max 2]
+            "degree": 1 // Number - [Min 1, Max 10]
         }
     ]
 }
@@ -110,7 +107,7 @@ The url must contain as parameter the ID of the custumer who will have list of h
 
 * Method PATCH.  
 * Endpoint URL - /api/ECHP?id=.  
-* Response {message: "status message", changes: { addedToList: Array, removedFromList: Array}, updatedCustomer: Object}.
+* Response {message: "status message", changes: { addedToList: Array, removedFromList: Array}, Customer: Object}.
 
 Body Example:
 ```javascript
@@ -118,11 +115,11 @@ Body Example:
     "list": [
         {
             "name": "health problem name", // String
-            "degree": 1 // Number - [Min 1, Max 2]
+            "degree": 1 // Number - [Min 1, Max 10]
         },
         {
             "name": " other health problem name", // String
-            "degree": 2 // Number - [Min 1, Max 2]
+            "degree": 2 // Number - [Min 1, Max 10]
         }
     ]
 }

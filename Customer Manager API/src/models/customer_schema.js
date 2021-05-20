@@ -8,7 +8,7 @@ const HealthProblems = new mongoose.Schema({
     degree: {
         type: Number,
         min: [1, 'The value of path `{PATH}` ({VALUE}) is beneath the limit ({MIN}).'],
-        max: [2, 'The value of path `{PATH}` ({VALUE}) exceeds the limit ({MAX}).'],
+        max: [10, 'The value of path `{PATH}` ({VALUE}) exceeds the limit ({MAX}).'],
         required: true,
     } 
 })

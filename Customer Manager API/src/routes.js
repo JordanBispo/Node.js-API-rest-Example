@@ -107,7 +107,7 @@ router.patch('/ECHP', async (req, res)=>{ // ECHP - EDIT CUSTOMER HEALTH PROBLEM
     return res.status(200).send({
         message: 'The list of customer health problems has been updated successfully',
         changes: { addedToList: added, removedFromList: removed},
-        updatedCustomer: result
+        Customer: result
     })  
 })
 
