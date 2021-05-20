@@ -12,11 +12,9 @@ A simple rest API to manage customer, programmed with Node.js and MongoDB, this 
 2º step - Run
 ```bash 
     > npm i 
-```
 
- or
+      or
 
-```bash
     > yarn
 ```
 to install the node's dependencies.
@@ -24,11 +22,9 @@ to install the node's dependencies.
 3º step - Run 
 ```bash 
     > npm start 
-``` 
 
- or
+       or
 
-```bash
     > yarn start
 ``` 
 
